@@ -1,0 +1,11 @@
+---
+- name: Clone the repository
+  hosts: centos_hosts
+  tasks:
+    - name: Clone Git repository
+      ansible.builtin.git:
+        repo: https://github.com/NagiosEnterprises/ncpa.git
+        dest: /root/ncpa
+        version: dev-v3.2.2 
+        clone: yes # Ensure cloning behavior
+        update: no # Prevent updating if already cloned
