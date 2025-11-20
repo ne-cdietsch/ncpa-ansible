@@ -1,0 +1,15 @@
+---
+- name: Update Git repository branch
+  hosts: centos_hosts
+  vars:
+    repo_url: "https://github.com/NagiosEnterprises/ncpa.git"
+    dest_path: "/root/ncpa"
+    branch_name: "dev-v3.2.2" # or "develop", "feature-branch", etc.
+
+  tasks:
+    - name: Ensure Git repository is present and updated
+      ansible.builtin.git:
+        repo: "{{ repo_url }}"
+        dest: "{{ dest_path }}"
+        version: "{{ branch_name }}" # This fetches and checks out the specified branch
+        update: yes # Ensures the repository is updated to the latest commit on the specified branch
