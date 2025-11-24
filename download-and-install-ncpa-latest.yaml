@@ -1,0 +1,47 @@
+---
+- name: Download and install latest NCPA release for rpm and deb based systems
+  hosts: centos_hosts, debian_hosts
+
+
+# Redhat based distro tasks
+  tasks:
+    - name: Check for dnf package manager
+      #      ansible.builtin.dnf:
+      ansible.builtin.debug:
+        msg: "The target host is using the dnf package manager."
+      when: ansible_pkg_mgr == "dnf"
+
+    - name: Download rpm install file
+      ansible.builtin.get_url:
+        url: "https://assets.nagios.com/downloads/ncpa3/ncpa-latest-1.x86_64.rpm"
+        dest: "/tmp/ncpa-latest-1.x86_64.rpm"
+        mode: '0755'
+      when: ansible_pkg_mgr == "dnf"
+
+    - name: Install rpm package
+      ansible.builtin.dnf:
+        name: "/tmp/ncpa-latest-1.x86_64.rpm"
+        state: present
+        disable_gpg_check: yes
+      when: ansible_pkg_mgr == "dnf"
+
+
+# Debian based distro tasks
+    - name: Check for apt package manager
+      #      ansible.builtin.apt:
+      ansible.builtin.debug:
+        msg: "The target host is using the apt package manager."
+      when: ansible_pkg_mgr == "apt"
+
+    - name: Download deb install file
+      ansible.builtin.get_url:
+        url: "https://assets.nagios.com/downloads/ncpa3/ncpa-latest-1.amd64.deb"
+        dest: "/tmp/ncpa-latest-1.amd64.deb"
+        mode: '0755'
+      when: ansible_pkg_mgr == "apt"
+
+    - name: Install deb package
+      ansible.builtin.apt:
+        deb: "/tmp/ncpa-latest-1.amd64.deb"
+        state: present
+      when: ansible_pkg_mgr == "apt"
