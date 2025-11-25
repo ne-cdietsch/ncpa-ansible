@@ -1,0 +1,36 @@
+---
+- name: Copy configuration files to remote servers
+  hosts: linux_hosts
+  tasks:
+    - name: Ensure the destination directory exists
+      ansible.builtin.file:
+        path: /usr/local/ncpa/etc/
+        state: directory
+        mode: '0755'
+
+    - name: Copy ncpa config file
+      ansible.builtin.copy:
+        src: template_files/ncpa.cfg
+        dest: /usr/local/ncpa/etc/ncpa.cfg
+        owner: root
+        group: nagios
+        mode: '0640'
+
+    - name: Ensure the destination directory exists
+      ansible.builtin.file:
+        path: /usr/local/ncpa/etc/ncpa.cfg.d
+        state: directory
+        mode: '0755'
+
+    - name: Copy nrdp config file
+      ansible.builtin.copy:
+        src: template_files/nrdp.cfg
+        dest: /usr/local/ncpa/etc/ncpa.cfg.d/nrdp.cfg
+        owner: root
+        group: nagios
+        mode: '0640'
+
+    - name: Restart the ncpa service
+      ansible.builtin.service:
+        name: ncpa
+        state: restarted
