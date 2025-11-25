@@ -19,7 +19,6 @@
         url: "https://assets.nagios.com/downloads/ncpa3/ncpa-{{ ncpa_version }}-1.x86_64.rpm"
         dest: "/tmp/ncpa-{{ ncpa_version }}-1.x86_64.rpm"
         mode: '0755'
-        validate_certs: false
       when: ansible_pkg_mgr == "dnf"
 
     - name: Install rpm package
@@ -42,7 +41,6 @@
         url: "https://assets.nagios.com/downloads/ncpa3/ncpa-{{ ncpa_version }}-1.amd64.deb"
         dest: "/tmp/ncpa-{{ ncpa_version }}-1.amd64.deb"
         mode: '0755'
-        validate_certs: false
       when: ansible_pkg_mgr == "apt"
 
     - name: Install deb package
