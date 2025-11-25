@@ -16,7 +16,7 @@
 
     - name: Download rpm install file
       ansible.builtin.get_url:
-        url: "https://192.168.5.110/assets/ncpa/ncpa-{{ ncpa_version }}-1.x86_64.rpm"
+        url: "https://assets.nagios.com/downloads/ncpa3/ncpa-{{ ncpa_version }}-1.x86_64.rpm"
         dest: "/tmp/ncpa-{{ ncpa_version }}-1.x86_64.rpm"
         mode: '0755'
         validate_certs: false
@@ -39,7 +39,7 @@
 
     - name: Download deb install file
       ansible.builtin.get_url:
-        url: "https://192.168.5.110/assets/ncpa/ncpa-{{ ncpa_version }}-1.amd64.deb"
+        url: "https://assets.nagios.com/downloads/ncpa3/ncpa-{{ ncpa_version }}-1.amd64.deb"
         dest: "/tmp/ncpa-{{ ncpa_version }}-1.amd64.deb"
         mode: '0755'
         validate_certs: false
