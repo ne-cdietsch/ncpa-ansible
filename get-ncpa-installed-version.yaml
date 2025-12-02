@@ -1,0 +1,13 @@
+---
+- name: Get ncpa installed version
+  hosts: linux_hosts
+  gather_facts: false # Optional: only gather package facts
+  tasks:
+    - name: Gather package facts
+      ansible.builtin.package_facts:
+        manager: auto # Automatically detect the package manager (dnf, yum, apt, etc.)
+
+    - name: Display the installed version of ncpa
+      ansible.builtin.debug:
+        msg: "ncpa version installed on {{ inventory_hostname }} is {{ ansible_facts.packages['ncpa'][0].version }}"
+      when: "'ncpa' in ansible_facts.packages"
